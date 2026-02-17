@@ -1,4 +1,3 @@
-// src/components/JobCard.tsx
 import type { Job } from "../types/job";
 
 interface JobCardProps {
