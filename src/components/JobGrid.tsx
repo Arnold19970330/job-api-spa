@@ -31,12 +31,24 @@ const itemVariants : Variants = {
   },
 };
 
-export function JobGrid({ data, isLoading, isError }: JobGridProps) {
+export function JobGrid({ data, isLoading, isError, refetch }: JobGridProps) {
   // 1. Hibaállapot
   if (isError) {
-    return (
-      <div className="bg-red-50 border-2 border-red-100 text-red-700 p-5 rounded-3xl text-center mb-8 font-semibold animate-pulse">
-        Hoppá! Valami hiba történt. Kérlek próbáld újra később!
+   return (
+      <div className="flex flex-col items-center justify-center p-12 bg-red-50 border-2 border-red-100 rounded-3xl text-center mb-8">
+        <div className="text-5xl mb-4">📡</div>
+        <h2 className="text-xl font-bold text-red-800 mb-2">Hálózati hiba történt</h2>
+        <p className="text-red-600 mb-6 font-medium">
+          Nem sikerült betölteni az állásokat. Ellenőrizd az internetkapcsolatod!
+        </p>
+        
+        {/* ÍME A REFECTH GOMB: */}
+        <button 
+          onClick={() => refetch()} 
+          className="px-8 py-3 bg-red-600 text-white font-bold rounded-2xl hover:bg-red-700 transition-all shadow-lg shadow-red-200 active:scale-95"
+        >
+          Próbálja újra
+        </button>
       </div>
     );
   }
