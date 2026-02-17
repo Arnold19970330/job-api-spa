@@ -12,6 +12,7 @@ export interface Job {
   jobIndustry: string[];
 }
 
+// amit amugyis visszakapok az api-tól így nincsen szükségesm rá lényegében....
 export type JobInput = Omit<Job, "id" | "url">;
 
 // 2. Pick - "Válogasd ki, ami kell"
