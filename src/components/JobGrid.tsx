@@ -2,12 +2,34 @@
 import { JobCard } from "./JobCard";
 import { SkeletonCard } from "./SkeletonCard";
 import type { Job } from "../types/job";
+import { motion } from "framer-motion";
+import type { Variants } from "framer-motion"
 
 interface JobGridProps {
   data: Job[] | undefined;
   isLoading: boolean;
   isError: boolean;
+  refetch: () => void;
 }
+
+const containerVariants : Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants : Variants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.4, ease: "easeOut" },
+  },
+};
 
 export function JobGrid({ data, isLoading, isError }: JobGridProps) {
   // 1. Hibaállapot
@@ -43,10 +65,17 @@ export function JobGrid({ data, isLoading, isError }: JobGridProps) {
 
   // 4. Sikeres adatmegjelenítés
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+    >
       {data.map((job) => (
-        <JobCard key={job.id} job={job} />
+        <motion.div key={job.id} variants={itemVariants}>
+          <JobCard job={job} />
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 }

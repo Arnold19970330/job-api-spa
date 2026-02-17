@@ -9,10 +9,7 @@ export function useJobs(geo: string, industry: string) {
   return useQuery<Job[]>({
     queryKey: ["jobs", geo, industry],
     queryFn: async () => {
-    
-      if (!API_URL) {
-        throw new Error("API URL is not defined in environment variables");
-      }
+      if (!API_URL) throw new Error("API URL is missing");
 
       const res = await axios.get(API_URL, {
         params: {
@@ -24,6 +21,6 @@ export function useJobs(geo: string, industry: string) {
       return res.data.jobs || [];
     },
     staleTime: 1000 * 60 * 5,
-    retry: 1,
+    retry: false,
   });
 }
