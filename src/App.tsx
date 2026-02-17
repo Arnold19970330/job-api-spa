@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useJobs } from "./hooks/useJobs";
 import { Filters } from "./components/Filters";
-import { JobGrid } from "./components/JobGRid";
+import { JobGrid } from "./components/JobGrid";
 
 export default function App() {
   const [geo, setGeo] = useState("");
